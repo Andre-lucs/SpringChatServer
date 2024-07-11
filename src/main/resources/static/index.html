@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chat app</title>
+    <link rel="stylesheet" href="styles.css">
+    <script type="importmap">
+        {
+          "imports": {
+            "@stomp/stompjs": "https://ga.jspm.io/npm:@stomp/stompjs@7.0.0/esm6/index.js"
+          }
+        }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script type="module" src="index.js"></script>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-window" id="chat1">
+            <div class="chat-header">
+                <h3>User 1</h3>
+                <button onclick="closeChat('1')">X</button>
+            </div>
+            <div class="chat-messages">
+                <!-- Messages will be displayed here -->
+            </div>
+            <div class="chat-input">
+                <input type="text" id="input1" placeholder="Type a message...">
+                <button value="1" class="send-btn">Send</button>
+            </div>
+        </div>
+        <div class="chat-window" id="chat2">
+            <div class="chat-header">
+                <h3>User 2</h3>
+                <button onclick="closeChat('2')">X</button>
+            </div>
+            <div class="chat-messages">
+                <!-- Messages will be displayed here -->
+            </div>
+            <div class="chat-input">
+                <input type="text" id="input2" placeholder="Type a message...">
+                <button value="2" class="send-btn">Send</button>
+            </div>
+        </div>
+        <div class="chat-window" id="chat3">
+            <div class="chat-header">
+                <h3>User 3</h3>
+                <button onclick="closeChat('3')">X</button>
+            </div>
+            <div class="chat-messages">
+                <!-- Messages will be displayed here -->
+            </div>
+            <div class="chat-input">
+                <input type="text" id="input3" placeholder="Type a message...">
+                <button value="3" class="send-btn">Send</button>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
