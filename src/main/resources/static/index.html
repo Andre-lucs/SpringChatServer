@@ -18,8 +18,15 @@
     <div class="chat-container">
         <div class="chat-window" id="chat1">
             <div class="chat-header">
-                <h3>User 1</h3>
-                <button onclick="closeChat('1')">X</button>
+                <h4>
+                    <span>Room:</span>
+                    <select class="chat-room-select">
+                    </select>
+                    <span>User: </span>
+                    <span>User 1</span>
+                    <button value="1" class="chat-connect">Connect</button>
+                </h4>
+                <button value="1" class="chat-quit">X</button>
             </div>
             <div class="chat-messages">
                 <!-- Messages will be displayed here -->
@@ -29,31 +36,17 @@
                 <button value="1" class="send-btn">Send</button>
             </div>
         </div>
-        <div class="chat-window" id="chat2">
-            <div class="chat-header">
-                <h3>User 2</h3>
-                <button onclick="closeChat('2')">X</button>
-            </div>
-            <div class="chat-messages">
-                <!-- Messages will be displayed here -->
-            </div>
-            <div class="chat-input">
-                <input type="text" id="input2" placeholder="Type a message...">
-                <button value="2" class="send-btn">Send</button>
-            </div>
-        </div>
-        <div class="chat-window" id="chat3">
-            <div class="chat-header">
-                <h3>User 3</h3>
-                <button onclick="closeChat('3')">X</button>
-            </div>
-            <div class="chat-messages">
-                <!-- Messages will be displayed here -->
-            </div>
-            <div class="chat-input">
-                <input type="text" id="input3" placeholder="Type a message...">
-                <button value="3" class="send-btn">Send</button>
-            </div>
+
+    </div>
+
+    <div class="rooms-container">
+        <h2>Rooms</h2>
+        <ul class="room-list">
+            <!-- Existing rooms will be displayed here -->
+        </ul>
+        <div class="create-room">
+            <input type="text" id="new-room-name" placeholder="Create a new room...">
+            <button id="create-room-btn" >Create</button>
         </div>
     </div>
 
