@@ -16,31 +16,13 @@
 </head>
 <body>
     <div class="chat-container">
-        <div class="chat-window" id="chat1">
-            <div class="chat-header">
-                <h4>
-                    <span>Room:</span>
-                    <select class="chat-room-select">
-                    </select>
-                    <span>User: </span>
-                    <span>User 1</span>
-                    <button value="1" class="chat-connect">Connect</button>
-                </h4>
-                <button value="1" class="chat-quit">X</button>
-            </div>
-            <div class="chat-messages">
-                <!-- Messages will be displayed here -->
-            </div>
-            <div class="chat-input">
-                <input type="text" id="input1" placeholder="Type a message...">
-                <button value="1" class="send-btn">Send</button>
-            </div>
-        </div>
+        <button id="add-chat-btn">Add new Chat</button>
 
     </div>
 
     <div class="rooms-container">
         <h2>Rooms</h2>
+        <button id="reload-rooms">Reload</button>
         <ul class="room-list">
             <!-- Existing rooms will be displayed here -->
         </ul>

@@ -2,10 +2,13 @@ package org.andrelucs.SpringChatServer.services;
 
 import org.andrelucs.SpringChatServer.model.ChatRoom;
 import org.andrelucs.SpringChatServer.model.dto.ChatRoomDTO;
+import org.andrelucs.SpringChatServer.model.dto.MessageDTO;
 import org.andrelucs.SpringChatServer.repositories.RoomRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -13,12 +16,22 @@ public class ChatRoomService {
 
     private RoomRepository repository;
 
-    public ChatRoomService(RoomRepository repository) {
+    private RoomUserCount roomsUsers;
+
+    private final Map<String, MessageDTO> lastRoomMessage = new HashMap<>();
+
+    public ChatRoomService(RoomRepository repository, RoomUserCount roomsUsers) {
         this.repository = repository;
+        this.roomsUsers = roomsUsers;
     }
 
     public List<ChatRoomDTO> getAllActiveRooms() {
-        return repository.findAll().stream().filter(ChatRoom::isActive).map(ChatRoomDTO::new).collect(Collectors.toList());
+        var chatRoomsDtos = repository.findAll().stream().filter(ChatRoom::isActive).map(ChatRoomDTO::new).collect(Collectors.toList());
+        chatRoomsDtos.forEach(i-> {
+            i.setActiveUsers(roomsUsers.getUserCount(i.getName()));
+            if(lastRoomMessage.containsKey(i.getName())) i.setLastMessage(lastRoomMessage.get(i.getName()));
+        });
+        return chatRoomsDtos;
     }
 
     public List<ChatRoomDTO> getAllRooms(){
@@ -46,4 +59,7 @@ public class ChatRoomService {
         return chatRoom.isPresent() && chatRoom.get().isActive();
     }
 
+    public Map<String, MessageDTO> getLastRoomMessage() {
+        return lastRoomMessage;
+    }
 }

@@ -7,7 +7,8 @@ import java.util.Objects;
 public class ChatRoomDTO {
     private String name;
     private boolean active;
-    private Integer activeUsers = 0;
+    private Integer activeUsers;
+    private MessageDTO lastMessage;
     public ChatRoomDTO(ChatRoom room) {
         this.name = room.getRoomName();
         this.active = room.isActive();
@@ -51,10 +52,20 @@ public class ChatRoomDTO {
     }
 
     public Integer getActiveUsers() {
+        if(activeUsers == null)return 0;
         return activeUsers;
     }
 
     public void setActiveUsers(Integer activeUsers) {
         this.activeUsers = activeUsers;
+        if(activeUsers<0) this.activeUsers = 0;
+    }
+
+    public MessageDTO getLastMessage() {
+        return lastMessage;
+    }
+
+    public void setLastMessage(MessageDTO lastMessage) {
+        this.lastMessage = lastMessage;
     }
 }
