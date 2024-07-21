@@ -1,5 +1,6 @@
 package org.andrelucs.SpringChatServer.services;
 
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -10,8 +11,11 @@ import java.util.Map;
 @Component
 public class RoomUserCount extends HashMap<String, List<String>> {// RoomName | UserIds
 
-    public RoomUserCount(Map<? extends String, ? extends List<String>> m) {
+    private SimpMessagingTemplate template;
+
+    public RoomUserCount(Map<? extends String, ? extends List<String>> m, SimpMessagingTemplate template) {
         super(m);
+        this.template = template;
     }
 
     public int getUserCount(String key){
@@ -42,6 +46,6 @@ public class RoomUserCount extends HashMap<String, List<String>> {// RoomName | 
     }
 
     private void sendRefreshMessage(String roomName){
-
+        //template.convertAndSend("/topic/rooms", new AlertDTO("Update Room", "Room user count has changed"));
     }
 }

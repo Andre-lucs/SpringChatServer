@@ -36,9 +36,23 @@ public class ChatMessageController {
         return message;
     }
 
+    @MessageMapping("/send/user/{username}")
+    @SendTo("/user/{username}")
+    public MessageDTO sendMessageToUser(@RequestBody MessageDTO message,
+                                        @DestinationVariable String username) throws Exception {
+        System.out.println("sendMessageToUser");
+        return message;
+    }
+
 
     @MessageExceptionHandler
     public ExceptionDTO handleNotFoundException(NotFoundException e) {
+        System.out.println("Exception: " + e.getMessage());
+
+        return new ExceptionDTO(e.getMessage(), new Date(), e.getMessage());
+    }
+    @MessageExceptionHandler
+    public ExceptionDTO handleException(Exception e) {
         System.out.println("Exception: " + e.getMessage());
 
         return new ExceptionDTO(e.getMessage(), new Date(), e.getMessage());

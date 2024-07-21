@@ -44,11 +44,12 @@ function createClient(number, roomName = 'general',username) {
                 if(windows[number].client.client.id == null){
                     windows[number].client.client.id = message.headers["message-id"].toString().substring(0, message.headers["message-id"].toString().lastIndexOf('-'))
                     console.log("specific user id :",windows[number].client.client.id)
-                    client.subscribe(`/user/queue/specific-user/${windows[number].client.client.id}`, (message)=>{
-                        console.log(message.body)
-                    })
                 }
                 updateMessages(JSON.parse(message.body), number);
+            })
+
+            client.subscribe(`/user/${username}`, (message)=>{
+                updateMessages(JSON.parse(message.body), number)
             })
         },
         onUnhandledMessage: (msg) => {
@@ -182,9 +183,52 @@ function createChatWindow(id) {
     loadRooms()
     setupListeners()
 }
+const genericClient = new Client({
+    brokerURL: SocketConnectUrl,
+    onConnect: (frame) => {
+        console.log('Connected to WebSocket server'+ frame.body)
+        genericClient.subscribe(`/topic/rooms`, (message)=>{
+            console.log(JSON.parse(message))
+        })
+    },
+    onUnhandledMessage: (msg) => {
+        console.error('Unhandled message:', msg)
+    },
+
+    onWebSocketError: (error) => {
+        console.error('WebSocket error:', error)
+    },
+
+    onStompError: (error) => {
+        console.error('Stomp error:', error)
+    },
+    onDisconnect: frame => {
+        console.log('Disconnected from WebSocket server: ', frame)
+        //setTimeout(() => clients[number].connect(), 5000) // reconnect after 5 seconds
+    },
+    onUnhandledFrame: (frame) => {
+        console.log(frame)
+    }
+})
+function sendPrivateMessage(){
+
+    genericClient.publish({
+        destination: `/chat/send/user/${$("#username").val()}`,
+        body: JSON.stringify({
+            content: $("#private-message-input").val(),
+            sender:"anon",
+            date: new Date()
+    }),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+}
+
 $(function () {
     setupListeners()
     loadRooms();
+    genericClient.activate()
 });
 
 function setupListeners(){
@@ -194,4 +238,6 @@ function setupListeners(){
     $("#create-room-btn").off('click').click(b => createRoom($("input#new-room-name")))
     $("#reload-rooms").off('click').click(b => loadRooms())
     $("#add-chat-btn").off('click').click(b => createChatWindow(Object.keys(windows).length))
+
+    $("#send-private-message-btn").off('click').click(b => sendPrivateMessage(b.target.value))
 }
