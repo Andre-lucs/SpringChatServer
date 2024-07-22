@@ -6,7 +6,7 @@
 ## Flaws seen after watching a tutorial
 
 1. Lack of planning and prototyping
-2. Not using SockJs
+2. Lack of understanding in websocket design
 3. Frontend's overcomplexing
 4. Using the @DestinationVariable to send the message
 
