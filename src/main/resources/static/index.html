@@ -15,16 +15,29 @@
     <script type="module" src="index.js"></script>
 </head>
 <body>
-    <input id="username-input" type="text" placeholder="username"/>
-    <button id="connect" >connect</button>
-    <button id="togle-conn" >toggle connection</button>
-    <button class="send" value="john_doe" >send john</button>
-    <button class="send" value="jane_smith" >send jane</button>
-    <button id="status">toggle status</button>
+    <div class="chat-container">
+        <button id="add-chat-btn">Add new Chat</button>
 
-    <div>
-        <h3>general_chat</h3>
-        <button class="send-chat" >send</button>
     </div>
+
+    <div class="rooms-container">
+        <h2>Rooms</h2>
+        <button id="reload-rooms">Reload</button>
+        <ul class="room-list">
+            <!-- Existing rooms will be displayed here -->
+        </ul>
+        <div class="create-room">
+            <input type="text" id="new-room-name" placeholder="Create a new room...">
+            <button id="create-room-btn" >Create</button>
+        </div>
+    </div>
+    <div class="private-message">
+        <label for="username" >Sent to</label>
+        <input type="text" id="username" placeholder="Username . . .">
+        <label for="private-message-input" >Message:</label>
+        <textarea id="private-message-input" placeholder="Send private message..."></textarea>
+        <button id="send-private-message-btn" >Send</button>
+    </div>
+
 </body>
 </html>
